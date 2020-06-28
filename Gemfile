@@ -9,6 +9,7 @@ gem 'puma'
 gem 'bootsnap'
 gem 'webpacker'
 gem 'jwt'
+gem 'graphql'
 
 group :development, :test do
   gem 'pry-byebug'
