@@ -1,10 +1,6 @@
 module Types
   class MutationType < Types::BaseObject
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World"
-    end
+    field :remove_parsec_session, mutation: Mutations::RemoveParsecSession
+    field :add_parsec_session, mutation: Mutations::AddParsecSession
   end
 end

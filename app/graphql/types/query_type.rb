@@ -1,13 +1,8 @@
 module Types
   class QueryType < Types::BaseObject
-    # Add root-level fields here.
-    # They will be entry points for queries on your schema.
-
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
+    field :parsec_sessions, [ParsecSessionType], null: false
+    def parsec_sessions
+      ParsecSession.from_query(ParsecSession.col.where(:user_sub, :==, context[:current_user_sub])).to_a
     end
   end
 end

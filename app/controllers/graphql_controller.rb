@@ -2,7 +2,7 @@ class GraphqlController < ApplicationController
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
-  # protect_from_forgery with: :null_session
+  protect_from_forgery with: :null_session
   before_action :authenticate
 
   def execute
@@ -11,7 +11,7 @@ class GraphqlController < ApplicationController
     operation_name = params[:operationName]
     context = {
       # Query context goes here, for example:
-      # current_user: current_user,
+      current_user_sub: @current_user_sub,
     }
     result = AppSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
@@ -48,7 +48,7 @@ class GraphqlController < ApplicationController
   end
 
   def authenticate
-    authenticate_or_request_with_http_token do |token, options|
+    authenticate_with_http_token do |token, options|
       @current_user_sub = FirebaseAdmin::Auth.verify_id_token(token)['sub']
     end
   end
