@@ -10,7 +10,7 @@ export const App: React.FC = () => {
   React.useEffect(() => {
     return firebase.auth().onAuthStateChanged(user => {
       setLoading(false);
-      setCurrentUser(user)
+      setCurrentUser(user || undefined);
     });
   }, [])
 
