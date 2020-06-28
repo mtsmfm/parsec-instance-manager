@@ -110,6 +110,7 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
+    jwt (2.2.1)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -200,6 +201,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   capybara
+  jwt
   listen
   pry-byebug
   pry-rails

@@ -8,6 +8,7 @@ gem 'rails', github: 'rails/rails'
 gem 'puma'
 gem 'bootsnap'
 gem 'webpacker'
+gem 'jwt'
 
 group :development, :test do
   gem 'pry-byebug'
