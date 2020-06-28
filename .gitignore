@@ -33,3 +33,5 @@ yarn-debug.log*
 .yarn-integrity
 
 /vendor/bundle
+
+/.devcontainer/app.env
