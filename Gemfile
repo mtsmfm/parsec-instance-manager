@@ -10,6 +10,8 @@ gem 'bootsnap'
 gem 'webpacker'
 gem 'jwt'
 gem 'graphql'
+gem 'graphql-batch'
+gem 'google-cloud-firestore', require: 'google/cloud/firestore'
 
 group :development, :test do
   gem 'pry-byebug'
@@ -28,4 +30,3 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
-gem 'graphql-batch'
