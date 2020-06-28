@@ -7,6 +7,7 @@ plugin "bundler-fast_git"
 gem 'rails', github: 'rails/rails'
 gem 'puma'
 gem 'bootsnap'
+gem 'webpacker'
 
 group :development, :test do
   gem 'pry-byebug'
