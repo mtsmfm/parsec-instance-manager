@@ -5,6 +5,8 @@ import { useLazyQuery } from "../hooks/graphql";
 import { AppQuery, AppQueryVariables } from "../graphql-generated";
 import { ParsecSessionForm } from "./ParsecSessionForm";
 import { ParsecSessions } from "./ParsecSessions";
+import { InstanceManagementRuleForm } from "./InstanceManagementRuleForm";
+import { InstanceManagementRules } from "./InstanceManagementRules";
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -16,8 +18,12 @@ export const App: React.FC = () => {
       parsecSessions {
         ...ParsecSessions_ParsecSession
       }
+      instanceManagementRules {
+        ...InstanceManagementRules_InstanceManagementRule
+      }
     }
     ${ParsecSessions.Fragments.parsecSession}
+    ${InstanceManagementRules.Fragments.instanceManagementRule}
   `);
 
   React.useEffect(() => {
@@ -51,6 +57,10 @@ export const App: React.FC = () => {
     <ParsecSessionForm />
 
     <ParsecSessions.Component parsecSessions={data.parsecSessions} />
+
+    <InstanceManagementRuleForm />
+
+    <InstanceManagementRules.Component instanceManagementRules={data.instanceManagementRules} />
 
     <ul>
       <li>
