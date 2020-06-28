@@ -12,6 +12,13 @@ services:
       - ~/.gitconfig:/home/app/.gitconfig:ro
       - ~/.zshrc:/home/app/.zshrc:ro
       - ~/.netrc:/home/app/.netrc:ro
+  yaichi:
+    image: mtsmfm/yaichi
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:3000
+      - 3035:3035
 volumes:
   app:
   home:
