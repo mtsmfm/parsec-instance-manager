@@ -26,6 +26,8 @@ jobs:
 
     - name: Build
       run: |-
+        gcloud config set builds/use_kaniko True
+
         gcloud builds submit \
           --quiet \
           --tag "gcr.io/${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}/$SERVICE_NAME:$GITHUB_SHA"
