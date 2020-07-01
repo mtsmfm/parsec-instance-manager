@@ -1,0 +1,40 @@
+name: Build and Deploy to Cloud Run
+
+on:
+  push:
+    branches:
+    - master
+
+env:
+  GOOGLE_CLOUD_REGION: asia-northeast1
+  SERVICE_NAME: app
+
+jobs:
+  setup-build-deploy:
+    name: Setup, Build, and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        version: '290.0.1'
+        service_account_key: ${{ secrets.GOOGLE_CLOUD_CREDENTIALS }}
+        project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
+
+    - name: Build
+      run: |-
+        gcloud builds submit \
+          --quiet \
+          --tag "gcr.io/${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}/$SERVICE_NAME:$GITHUB_SHA"
+
+    - name: Deploy
+      run: |-
+        gcloud run deploy "$SERVICE_NAME" \
+          --quiet \
+          --region "$GOOGLE_CLOUD_REGION" \
+          --image "gcr.io/${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}/$SERVICE_NAME:$GITHUB_SHA" \
+          --platform "managed" \
+          --allow-unauthenticated
