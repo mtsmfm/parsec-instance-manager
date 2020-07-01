@@ -2,7 +2,9 @@ version: "3.7"
 services:
   app:
     init: true
-    build: .
+    build:
+      context: ..
+      target: develop
     command: sleep infinity
     volumes:
       - ..:/original:cached
