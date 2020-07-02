@@ -37,40 +37,35 @@ const useIsMountedRef = () => {
   return isMountedRef;
 }
 
-export const useQuery = <TData, TVariables>(query: DocumentNode, variables: TVariables) => {
-  const [state, setState] = useState<QueryState<TData>>({ loading: true, error: false, data: undefined });
-  const isMountedRef = useIsMountedRef();
-
-  useEffect(() => {
-    (async () => {
-      setState({ loading: true, error: false, data: undefined });
-
-      const { data, errors } = await postQuery<TData, TVariables>(print(query), variables);
-
-      if (isMountedRef.current) {
-        setState({ loading: false, error: !!errors, data });
-      }
-    })();
-  }, []);
-
-  return state;
-}
-
-export const useMutation = <TData, TVariables>(query: DocumentNode) => {
+export const useLazyQuery = <TData, TVariables>(query: DocumentNode) => {
   const [state, setState] = useState<QueryState<TData>>({ loading: false, error: false, data: undefined });
   const isMountedRef = useIsMountedRef();
 
   const func = async (variables: TVariables) => {
     setState({ loading: true, error: false, data: undefined });
 
-    const { data, errors } = await postQuery<TData, TVariables>(print(query), variables);
+    try {
+      const { data, errors } = await postQuery<TData, TVariables>(print(query), variables);
 
-    if (isMountedRef.current) {
-      setState({ loading: false, error: !!errors, data });
+      if (isMountedRef.current) {
+        setState({ loading: false, error: !!errors, data });
+      }
+    } catch {
+      setState({ loading: false, error: true, data: undefined });
     }
   }
 
   return [func, state] as const;
 }
 
-export const useLazyQuery = useMutation;
+export const useQuery = <TData, TVariables>(query: DocumentNode, variables: TVariables) => {
+  const [func, state] = useLazyQuery<TData, TVariables>(query);
+
+  useEffect(() => {
+    func(variables);
+  }, []);
+
+  return state;
+}
+
+export const useMutation = useLazyQuery;

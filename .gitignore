@@ -35,3 +35,4 @@ yarn-debug.log*
 /vendor/bundle
 
 /.devcontainer/app.env
+/.devcontainer/google_app_credentials.json

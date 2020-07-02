@@ -3,10 +3,8 @@ import * as firebase from "firebase";
 import gql from "graphql-tag";
 import { useLazyQuery } from "../hooks/graphql";
 import { AppQuery, AppQueryVariables } from "../graphql-generated";
-import { ParsecSessionForm } from "./ParsecSessionForm";
-import { ParsecSessions } from "./ParsecSessions";
-import { InstanceManagementRuleForm } from "./InstanceManagementRuleForm";
-import { InstanceManagementRules } from "./InstanceManagementRules";
+import { GcpInstances } from "./GcpInstances";
+import { ParsecHosts } from "./ParsecHosts";
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -15,15 +13,15 @@ export const App: React.FC = () => {
   const [currentUser, setCurrentUser] = React.useState<firebase.User>();
   const [fetch, { data, loading, error }] = useLazyQuery<AppQuery, AppQueryVariables>(gql`
     query App {
-      parsecSessions {
-        ...ParsecSessions_ParsecSession
+      gcpInstances {
+        ...GcpInstances_GcpInstance
       }
-      instanceManagementRules {
-        ...InstanceManagementRules_InstanceManagementRule
+      parsecHosts {
+        ...ParsecHosts_ParsecHosts
       }
     }
-    ${ParsecSessions.Fragments.parsecSession}
-    ${InstanceManagementRules.Fragments.instanceManagementRule}
+    ${GcpInstances.Fragments.gcpInstances}
+    ${ParsecHosts.Fragments.parsecHosts}
   `);
 
   React.useEffect(() => {
@@ -34,33 +32,32 @@ export const App: React.FC = () => {
   }, [])
 
   React.useEffect(() => {
-    if (!isFirebaseLoading) {
+    if (!isFirebaseLoading && currentUser) {
       fetch({});
     }
-  }, [isFirebaseLoading]);
+  }, [isFirebaseLoading, currentUser]);
 
-  if (isFirebaseLoading || loading || !data) {
+  if (isFirebaseLoading) {
     return <>Loading...</>;
-  }
-
-  if (error) {
-    return <>Error</>;
   }
 
   if (!currentUser) {
     return <button onClick={() => firebase.auth().signInWithRedirect(provider)}>Login with Google account</button>;
   }
 
+  if (loading) {
+    return <>Loading...</>;
+  }
+
+  if (error || !data) {
+    return <>Error</>;
+  }
+
   return <>
     Hello {currentUser.displayName}
 
-    <ParsecSessionForm />
-
-    <ParsecSessions.Component parsecSessions={data.parsecSessions} />
-
-    <InstanceManagementRuleForm />
-
-    <InstanceManagementRules.Component instanceManagementRules={data.instanceManagementRules} />
+    <GcpInstances.Component gcpInstances={data.gcpInstances} />
+    <ParsecHosts.Component parsecHosts={data.parsecHosts} />
 
     <ul>
       <li>

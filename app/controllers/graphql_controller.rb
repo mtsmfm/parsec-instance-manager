@@ -48,7 +48,9 @@ class GraphqlController < ApplicationController
   end
 
   def authenticate
-    authenticate_with_http_token do |token, options|
+    authenticate_or_request_with_http_token do |token, options|
+      payload = FirebaseAdmin::Auth.verify_id_token(token)
+      return head(403) unless ENV['ALLOWED_EMAILS'].split(',').include?(payload['email'])
       @current_user_sub = FirebaseAdmin::Auth.verify_id_token(token)['sub']
     end
   end
