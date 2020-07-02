@@ -56,13 +56,13 @@ export const App: React.FC = () => {
   return <>
     Hello {currentUser.displayName}
 
-    <GcpInstances.Component gcpInstances={data.gcpInstances} />
-    <ParsecHosts.Component parsecHosts={data.parsecHosts} />
-
     <ul>
       <li>
         <button onClick={() => firebase.auth().signOut()}>Signout</button>
       </li>
     </ul>
+
+    <GcpInstances.Component gcpInstances={data.gcpInstances} />
+    <ParsecHosts.Component parsecHosts={data.parsecHosts} />
   </>;
 }
