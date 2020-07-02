@@ -1,4 +1,4 @@
-schema: http://localhost:3000/graphql
+schema: schema.graphql
 documents: "app/javascript/**/*.{ts,tsx}"
 generates:
   ./app/javascript/graphql-generated.d.ts:
