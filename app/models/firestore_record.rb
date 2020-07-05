@@ -16,6 +16,10 @@ class FirestoreRecord
       @client ||= Google::Cloud::Firestore.new
     end
 
+    def all
+      from_query(col)
+    end
+
     def col
       client.col(name.tableize)
     end

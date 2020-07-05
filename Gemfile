@@ -12,7 +12,7 @@ gem 'jwt'
 gem 'graphql'
 gem 'graphql-batch'
 gem 'googleauth'
-gem 'google-api-client', require: 'google/apis/compute_v1'
+gem 'google-api-client', require: %w(google/apis/compute_v1 google/apis/fcm_v1)
 gem 'google-cloud-firestore', require: 'google/cloud/firestore'
 gem 'google-cloud-secret_manager', require: 'google/cloud/secret_manager'
 
