@@ -3,7 +3,7 @@ steps:
   args:
     - build
     - --tag
-    - "gcr.io/$$FIREBASE_PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA"
+    - "gcr.io/$$FIREBASE_PROJECT_ID/$$SERVICE_NAME:$$GITHUB_SHA"
     - --build-arg
     - FIREBASE_PROJECT_ID=$$FIREBASE_PROJECT_ID
     - --build-arg
