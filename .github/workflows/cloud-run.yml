@@ -29,6 +29,7 @@ jobs:
         gcloud config set builds/use_kaniko True
 
         gcloud builds submit \
+          --timeout="30m" \
           --quiet \
           --tag "gcr.io/${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}/$SERVICE_NAME:$GITHUB_SHA"
 
