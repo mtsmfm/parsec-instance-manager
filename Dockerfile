@@ -34,4 +34,4 @@ COPY --chown=app . /app
 
 RUN bin/rails assets:precompile
 
-ENTRYPOINT ["bin/rails", "s", "-b", "0.0.0.0", "-p", "$PORT"]
+ENTRYPOINT ["bin/rails", "s", "-b", "0.0.0.0"]
