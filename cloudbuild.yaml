@@ -20,3 +20,4 @@ steps:
     - FIREBASE_APP_ID=$_FIREBASE_APP_ID
     - --build-arg
     - FIREBASE_MEASUREMENT_ID=$_FIREBASE_MEASUREMENT_ID
+    - "."
