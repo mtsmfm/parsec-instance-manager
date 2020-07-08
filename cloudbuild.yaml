@@ -1,9 +1,7 @@
 steps:
-- name: "gcr.io/cloud-builders/docker"
+- name: "gcr.io/kaniko-project/executor:latest"
   args:
-    - build
-    - --tag
-    - "gcr.io/$_FIREBASE_PROJECT_ID/$_SERVICE_NAME:$_GITHUB_SHA"
+    - --destination=gcr.io/$_FIREBASE_PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA
     - --build-arg
     - FIREBASE_PROJECT_ID=$_FIREBASE_PROJECT_ID
     - --build-arg
@@ -21,3 +19,7 @@ steps:
     - --build-arg
     - FIREBASE_MEASUREMENT_ID=$_FIREBASE_MEASUREMENT_ID
     - "."
+- name: "gcr.io/cloud-builders/docker"
+  args:
+    - push
+    - "gcr.io/$_FIREBASE_PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA"
