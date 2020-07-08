@@ -250,6 +250,8 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (2.3.0)
+    sentry-raven (3.0.0)
+      faraday (>= 1.0)
     signet (0.14.0)
       addressable (~> 2.3)
       faraday (>= 0.17.3, < 2.0)
@@ -308,6 +310,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails!
   selenium-webdriver
+  sentry-raven
   spring
   web-console
   webdrivers
