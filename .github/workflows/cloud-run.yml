@@ -42,7 +42,7 @@ jobs:
 
     - name: Deploy
       run: |-
-        SERVICE_NAME=job \
+        SERVICE_NAME=job
         gcloud run deploy "$SERVICE_NAME" \
           --quiet \
           --region "$GOOGLE_CLOUD_REGION" \
