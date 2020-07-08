@@ -26,8 +26,6 @@ jobs:
 
     - name: Build
       run: |-
-        gcloud config set builds/use_kaniko True
-
         gcloud builds submit \
           --timeout="30m" \
           --quiet \
