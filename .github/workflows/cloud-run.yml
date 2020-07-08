@@ -42,9 +42,8 @@ jobs:
 
     - name: Deploy
       run: |-
-        SERVICE_NAME=job
-        gcloud run deploy "$SERVICE_NAME" \
+        gcloud run deploy job \
           --quiet \
           --region "$GOOGLE_CLOUD_REGION" \
-          --image "gcr.io/${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}/$SERVICE_NAME:$GITHUB_SHA" \
+          --image "gcr.io/${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}/app:$GITHUB_SHA" \
           --platform "managed"
