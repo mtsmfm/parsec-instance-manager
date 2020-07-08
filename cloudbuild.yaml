@@ -1,10 +1,10 @@
 steps:
 - name: "gcr.io/kaniko-project/executor:latest"
   args:
-    - --destination=gcr.io/$_FIREBASE_PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA
+    - --destination=gcr.io/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA
     - --cache=true
     - --build-arg
-    - FIREBASE_PROJECT_ID=$_FIREBASE_PROJECT_ID
+    - FIREBASE_PROJECT_ID=$PROJECT_ID
     - --build-arg
     - FIREBASE_API_KEY=$_FIREBASE_API_KEY
     - --build-arg
@@ -19,7 +19,3 @@ steps:
     - FIREBASE_APP_ID=$_FIREBASE_APP_ID
     - --build-arg
     - FIREBASE_MEASUREMENT_ID=$_FIREBASE_MEASUREMENT_ID
-- name: "gcr.io/cloud-builders/docker"
-  args:
-    - push
-    - "gcr.io/$_FIREBASE_PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA"
