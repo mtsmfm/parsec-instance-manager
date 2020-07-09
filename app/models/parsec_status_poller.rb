@@ -29,7 +29,7 @@ class ParsecStatusPoller
         parsec_polling_result.save!
       else
         if parsec_polling_result.players == 0 && parsec_polling_result.updated_at < 5.minutes.ago
-          gcp_api_client.stop_instance(gcp_instance) if gcp_api_client.status == 'RUNNING'
+          gcp_api_client.stop_instance(gcp_instance) if gcp_instance.status == 'RUNNING'
 
           FcmToken.all.each do |f|
             gcp_api_client.send_message(title: "#{parsec_polling_result.name} is stopped automatically", token: token)
