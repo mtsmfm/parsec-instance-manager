@@ -71,6 +71,11 @@ class FirestoreRecord
     end
   end
 
+  def initialize(**attrs)
+    super
+    clear_changes_information
+  end
+
   def update!(**attrs)
     self.attributes = attrs
     save!
@@ -102,6 +107,8 @@ class FirestoreRecord
       else
         doc.set(attrs)
       end
+
+      changes_applied
 
       true
     else
