@@ -22,7 +22,7 @@ class ParsecStatusPoller
       if parsec_polling_result.changed?
         if parsec_polling_result.changes[:running] == [false, true]
           FcmToken.all.each do |f|
-            gcp_api_client.send_message(title: "#{parsec_polling_result.name} started", token: token)
+            gcp_api_client.send_message(title: "#{parsec_polling_result.name} started", token: f.token)
           end
         end
 
@@ -32,7 +32,7 @@ class ParsecStatusPoller
           gcp_api_client.stop_instance(gcp_instance) if gcp_instance.status == 'RUNNING'
 
           FcmToken.all.each do |f|
-            gcp_api_client.send_message(title: "#{parsec_polling_result.name} is stopped automatically", token: token)
+            gcp_api_client.send_message(title: "#{parsec_polling_result.name} is stopped automatically", token: f.token)
           end
         end
       end
