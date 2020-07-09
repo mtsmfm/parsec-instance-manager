@@ -14,7 +14,7 @@ class ParsecStatusPoller
       parsec_host = parsec_host_by_peer_id[peer_id]
       parsec_polling_result = parsec_polling_result_by_peer_id[peer_id] || ParsecPollingResult.create!(parsec_host.slice(:peer_id, :players, :name).merge(running: true))
 
-      gcp_instance = gcp_instances.find {|i| match?(gcp_instances: i, parsec_host_name: parsec_polling_result.name) }
+      gcp_instance = gcp_instances.find {|i| match?(gcp_instance: i, parsec_host_name: parsec_polling_result.name) }
 
       parsec_polling_result.players = parsec_host ? parsec_host[:players] : 0
       parsec_polling_result.running = !!parsec_host
