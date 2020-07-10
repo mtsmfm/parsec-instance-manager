@@ -18,7 +18,7 @@ class ParsecStatusPoller
 
       parsec_polling_result.players = parsec_host ? parsec_host[:players] : 0
       parsec_polling_result.parsec_running = !!parsec_host
-      parsec_polling_result.instance_running = !!gcp_instance
+      parsec_polling_result.instance_running = gcp_instance.status == 'RUNNING'
 
       if parsec_polling_result.changed?
         if parsec_polling_result.changes[:parsec_running] == [false, true]
