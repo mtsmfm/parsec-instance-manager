@@ -5,8 +5,10 @@ class ParsecPollingResult < FirestoreRecord
   validates :players, presence: true
   attribute :name, :string
   validates :name, presence: true
-  attribute :running, :boolean
-  validates :running, inclusion: {in: [true, false]}
+  attribute :parsec_running, :boolean
+  validates :parsec_running, inclusion: {in: [true, false]}
+  attribute :instance_running, :boolean
+  validates :instance_running, inclusion: {in: [true, false]}
 
   attribute :created_at, :time, default: -> { Time.zone.now }
   validates :created_at, presence: true
