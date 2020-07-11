@@ -12,7 +12,7 @@ class ParsecStatusPoller
 
     (parsec_polling_result_by_peer_id.keys + parsec_host_by_peer_id.keys).uniq.each do |peer_id|
       parsec_host = parsec_host_by_peer_id[peer_id]
-      parsec_polling_result = parsec_polling_result_by_peer_id[peer_id] || ParsecPollingResult.create!(parsec_host.slice(:peer_id, :players, :name).merge(parsec_running: true))
+      parsec_polling_result = parsec_polling_result_by_peer_id[peer_id] || ParsecPollingResult.new(parsec_host.slice(:peer_id, :players, :name))
 
       gcp_instance = gcp_instances.find {|i| match?(gcp_instance: i, parsec_host_name: parsec_polling_result.name) }
 
